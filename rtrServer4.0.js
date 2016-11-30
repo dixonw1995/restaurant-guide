@@ -69,6 +69,16 @@ app.get("/api/read/:f/:k", function(req, res) {
 	});
 });
 
+app.get("/gmap", function(req, res) {
+	console.log(req.query);
+	res.render("gmap", {
+		lat: req.query.lat,
+		lon: req.query.lon,
+		zoom: 13,
+		title: req.query.title
+	});
+});
+
 app.all("/.*/", dbReady);
 
 app.get("/register", function(req, res) {

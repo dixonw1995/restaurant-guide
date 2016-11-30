@@ -1,0 +1,24 @@
+<HTML><BODY>
+<H1>Restaurants</H1>
+<h2>User: <%= userid %></h2>
+
+<form action="" method="get">
+<label>Name</label>
+<input name="name" type="text"><br>
+<label>Borough</label>
+<input name="borough" type="text"><br>
+<label>Cuisine</label>
+<input name="cuisine" type="text"><br>
+<input type="submit" value="search"><br>
+</form>
+
+<h3>Showing <%= rtrs.length %> restaurants (criteria: <%= criteria %>)</h3>
+<ul>
+	<% rtrs.forEach(function(rtr) { %>
+	<li><a href="/display?_id=<%= rtr._id %>"><%= rtr.name %></a></li>
+	<% }); %>
+</ul>
+
+<a href="/new">New</a><br>
+<a href="/logout">Logout</a><br>
+</BODY></HTML>

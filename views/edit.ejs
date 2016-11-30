@@ -1,0 +1,31 @@
+<HTML><BODY>
+<H1>Edit Restaurant</H1>
+<h2>User: <%= userid %></h2>
+
+<form action="?_id=<%= rtr._id %>" method="post" encType="multipart/form-data">
+<label>Name</label>
+<input name="name" type="text" value="<%= rtr.name%>" require><br>
+<label>Borough</label>
+<input name="borough" type="text" value="<%= rtr.borough%>"><br>
+<label>Cuisine</label>
+<input name="cuisine" type="text" value="<%= rtr.cuisine%>"><br><br>
+<strong>Address</strong><br>
+<label>Street</label>
+<input name="street" type="text" value="<%= rtr.address.street%>"><br>
+<label>Building</label>
+<input name="building" type="text" value="<%= rtr.address.building%>"><br>
+<label>Zipcode</label>
+<input name="zipcode" type="text" value="<%= rtr.address.zipcode%>"><br><br>
+<strong>GPS</strong><br>
+<label>Latitude</label>
+<input name="latitude" type="text" value="<%= rtr.address.coord.latitude%>"><br>
+<label>Longtitude</label>
+<input name="longtitude" type="text" value="<%= rtr.address.coord.longtitude%>"><br><br>
+<label>Photo</label>
+<input name="photo" type="file"><br><br>
+<input type="submit" value="Edit">
+</form>
+
+<a href="/display?_id=<%= rtr._id %>">Go Back</a><br>
+<a href="/logout">Logout</a><br>
+</BODY></HTML>

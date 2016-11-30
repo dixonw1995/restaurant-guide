@@ -1,0 +1,13 @@
+<HTML><BODY>
+<H1>Rate Restaurant</H1>
+<h2>User: <%= userid %></h2>
+
+<form action="?_id=<%= rtr._id %>" method="post" encType="multipart/form-data">
+<label>Score (1-10): </label>
+<input name="score" type="number"><br>
+<input type="submit" value="rate">
+</form>
+
+<a href="/display?_id=<%= rtr._id %>">Go Back</a><br>
+<a href="/logout">Logout</a><br>
+</BODY></HTML>

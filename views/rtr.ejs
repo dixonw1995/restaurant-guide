@@ -1,0 +1,34 @@
+<HTML><BODY>
+
+<h1>Restaurant: <%= rtr.name %></h1>
+<h2>User: <%= userid %></h2>
+<% if (rtr.photo) { %>
+<img src="data: <%= rtr.mimetype %>;base64, <%= rtr.photo %>" border="1">
+<% } %>
+<ul>
+	<li>Borough: <%= rtr.borough %></li>
+	<li>Cuisine: <%= rtr.cuisine %></li>
+	<li>Address
+		<ul>
+			<li>Street: <%= rtr.address.street %></li>
+			<li>Building: <%= rtr.address.building %></li>
+			<li>Zipcode: <%= rtr.address.zipcode %></li>
+		</ul>
+	</li>
+	<li>GPS: [<%= rtr.address.coord.latitude %>, <%= rtr.address.coord.longtitude %>]</li>
+	<li>Rating
+		<ol>
+			<% rtr.grades.forEach(function(grade) { %>
+			<li><%= grade.score %> (<%= grade.user %>)</li>
+			<% }); %>
+		</ol>
+	</li>
+	<li>Created by: <%= rtr.userid %></li>
+</ul>
+
+<a href="/change?_id=<%= rtr._id %>">Edit</a><br>
+<a href="/remove?_id=<%= rtr._id %>">Delete</a><br>
+<a href="/rate?_id=<%= rtr._id %>">Rate</a><br>
+<a href="/read<%= search %>">Go Back</a><br>
+<a href="/logout">Logout</a><br>
+</BODY></HTML>

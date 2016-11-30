@@ -89,28 +89,26 @@ app.post("/register", function(req, res, next) {
 	var userid = req.body.userid;
 	console.log(userid + " is registering")
 	//register
-	//if (connection) {
-		req.user = new User(req.body);
-		User.findOne({userid: req.user.userid}, function(err, used) {
-			if (err) {
-				res.render("error", {
-					userid: req.session.userid,
-					error: err,
-					back: "/read" + (req.session.search) ? req.session.search : ""
-				});
-				return;
-			}
-			if (used) {
-				res.render("error", {
-					userid: req.session.userid,
-					error: "Username is used",
-					back: "/read" + (req.session.search) ? req.session.search : ""
-				});
-				return;
-			}
-			next();
-		});
-	//}
+	req.user = new User(req.body);
+	User.findOne({userid: req.user.userid}, function(err, used) {
+		if (err) {
+			res.render("error", {
+				userid: req.session.userid,
+				error: err,
+				back: "/read" + (req.session.search) ? req.session.search : ""
+			});
+			return;
+		}
+		if (used) {
+			res.render("error", {
+				userid: req.session.userid,
+				error: "Username is used",
+				back: "/read" + (req.session.search) ? req.session.search : ""
+			});
+			return;
+		}
+		next();
+	});
 }, function(req, res, next) {
 	req.user.validate(function(err) {
 		if (err) {
@@ -151,29 +149,27 @@ app.post(/.*/, function(req, res, next) {
 	var userid = req.body.userid;
 	console.log(userid + " is logging in")
 	//login
-	//if (connection) {
-		//check if userid match password
-		User.findOne(req.body, function(err, user) {
-			if (err) {
-				res.render("error", {
-					userid: req.session.userid,
-					error: err,
-					back: "/read" + (req.session.search) ? req.session.search : ""
-				});
-				return;
-			}
-			if (user) {
-				console.log(userid + " has logged in");
-				//put in session
-				req.session.userid = userid;
-				req.method = "GET";
-				next();
-				return;
-			}
-			console.log(userid + " fails to log in");
-			res.render("login");
-		});
-	//}
+	//check if userid match password
+	User.findOne(req.body, function(err, user) {
+		if (err) {
+			res.render("error", {
+				userid: req.session.userid,
+				error: err,
+				back: "/read" + (req.session.search) ? req.session.search : ""
+			});
+			return;
+		}
+		if (user) {
+			console.log(userid + " has logged in");
+			//put in session
+			req.session.userid = userid;
+			req.method = "GET";
+			next();
+			return;
+		}
+		console.log(userid + " fails to log in");
+		res.render("login");
+	});
 });
 
 app.get("/", isUser, function(req, res) {
@@ -217,9 +213,17 @@ app.route("/new")
 		rtr.mimetype = photo.mimetype;
 	}
 	//create
-	//if (connection) {
-		rtr = new Rtr(rtr);
-		rtr.validate(function(err) {
+	rtr = new Rtr(rtr);
+	rtr.validate(function(err) {
+		if (err) {
+			res.render("error", {
+				userid: req.session.userid,
+				error: err,
+				back: "/read" + (req.session.search) ? req.session.search : ""
+			});
+			return;
+		}
+		rtr.save(function(err) {
 			if (err) {
 				res.render("error", {
 					userid: req.session.userid,
@@ -228,20 +232,10 @@ app.route("/new")
 				});
 				return;
 			}
-			rtr.save(function(err) {
-				if (err) {
-					res.render("error", {
-						userid: req.session.userid,
-						error: err,
-						back: "/read" + (req.session.search) ? req.session.search : ""
-					});
-					return;
-				}
-				console.log(userid + " has created " + rtr.name);
-				res.redirect("/read");
-			});
+			console.log(userid + " has created " + rtr.name);
+			res.redirect("/read");
 		});
-	//}
+	});
 });
 
 app.get("/read", isUser, function(req, res) {
@@ -253,28 +247,26 @@ app.get("/read", isUser, function(req, res) {
 	}
 	console.log(userid + " is looking for " + JSON.stringify(req.query));
 	//display restaurant list
-	//if (connection) {
-		Rtr.find(req.query, function(err, rtrs) {
-			if (err) {
-				res.render("error", {
-					userid: req.session.userid,
-					error: err,
-					back: "/read" + (req.session.search) ? req.session.search : ""
-				});
-				return;
-			}
-			res.render("catalog", {
-				"userid": req.session.userid,
-				"criteria": JSON.stringify(req.query),
-				"rtrs": rtrs,
-				"search": (req.session.search) ? req.session.search : ""
+	Rtr.find(req.query, function(err, rtrs) {
+		if (err) {
+			res.render("error", {
+				userid: req.session.userid,
+				error: err,
+				back: "/read" + (req.session.search) ? req.session.search : ""
 			});
-			console.log(userid + " found " + rtrs.length + " restaurants");
-			if (require('url').parse(req.url).query){
-				req.session.search = "?" + require('url').parse(req.url).query;
-			}
+			return;
+		}
+		res.render("catalog", {
+			"userid": req.session.userid,
+			"criteria": JSON.stringify(req.query),
+			"rtrs": rtrs,
+			"search": (req.session.search) ? req.session.search : ""
 		});
-	//}
+		console.log(userid + " found " + rtrs.length + " restaurants");
+		if (require('url').parse(req.url).query){
+			req.session.search = "?" + require('url').parse(req.url).query;
+		}
+	});
 });
 
 app.get("/display", isUser, validOId, getRtr, function(req, res) {
@@ -447,28 +439,26 @@ function validOId(req, res, next) {
 //validate restaurant
 function getRtr(req, res, next) {
 	var userid = req.session.userid;
-	//if (connection) {
-		Rtr.findById(ObjectId(req.query._id), function(err, rtr) {
-			if (err) {
-				res.render("error", {
-					userid: userid,
-					error: err,
-					back: "/read" + (req.session.search) ? req.session.search : ""
-				});
-				return;
-			}
-			if (!rtr) {
-				res.render("error", {
-					userid: userid,
-					error: "The restaurant does not exist",
-					back: "/read" + (req.session.search) ? req.session.search : ""
-				});
-				return;
-			}
-			req.rtr = rtr;
-			next();
-		});
-	//}
+	Rtr.findById(ObjectId(req.query._id), function(err, rtr) {
+		if (err) {
+			res.render("error", {
+				userid: userid,
+				error: err,
+				back: "/read" + (req.session.search) ? req.session.search : ""
+			});
+			return;
+		}
+		if (!rtr) {
+			res.render("error", {
+				userid: userid,
+				error: "The restaurant does not exist",
+				back: "/read" + (req.session.search) ? req.session.search : ""
+			});
+			return;
+		}
+		req.rtr = rtr;
+		next();
+	});
 }
 
 //validate authority

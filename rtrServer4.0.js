@@ -207,7 +207,7 @@ app.route("/new")
 		mimetype: ""
 	};
 	if (req.files.photo.name){
-		photo = req.files.photo;
+		var photo = req.files.photo;
 		rtr.photo = new Buffer(photo.data).toString("base64");
 		rtr.mimetype = photo.mimetype;
 	}

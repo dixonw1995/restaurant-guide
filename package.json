@@ -15,6 +15,6 @@
 	},
 	"engine": "node >= 0.10.0",
 	"scripts": {
-		"start": "node rtrServer.js"
+		"start": "node rtrServer4.0"
 	}
 }

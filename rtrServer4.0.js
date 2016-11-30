@@ -86,7 +86,7 @@ app.get("/register", function(req, res) {
 });
 app.post("/register", function(req, res, next) {
 	var userid = req.body.userid;
-	console.log(userid + " is registering")
+	console.log(userid + " is registering");
 	//register
 	req.user = new User(req.body);
 	User.findOne({userid: req.user.userid}, function(err, used) {
@@ -146,7 +146,7 @@ app.post(/.*/, function(req, res, next) {
 		return next();
 	}
 	var userid = req.body.userid;
-	console.log(userid + " is logging in")
+	console.log(userid + " is logging in");
 	//login
 	//check if userid match password
 	User.findOne(req.body, function(err, user) {
@@ -187,7 +187,7 @@ app.route("/new")
 	var userid = req.session.userid;
 	console.log(userid + " is creating a restaurant document");
 	//format query to document
-	query = req.body;
+	var query = req.body;
 	var rtr = {
 		name: query.name,
 		borough: query.borough,

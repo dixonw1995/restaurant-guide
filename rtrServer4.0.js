@@ -3,7 +3,6 @@ var bodyParser = require('body-parser');
 var fileUpload = require('express-fileupload');
 var app = express();
 var session = require('cookie-session');
-var assert = require('assert');
 var mongourl = 'mongodb://ouhk-comp:s381f@ds159747.mlab.com:59747/restaurant-guide';
 var mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
@@ -29,7 +28,7 @@ app.post("/api/create", function(req, res) {
 	if (!connection) {
 		return res.end("Server is not ready. Try later.");
 	}
-	rtr = new Rtr(req.body);
+	var rtr = new Rtr(req.body);
 	console.log(req.body);
 	rtr.validate(function(err) {
 		if (err) {

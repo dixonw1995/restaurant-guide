@@ -1,20 +1,31 @@
 {
-	"version": "3.10.8",
-	"name": "npm",
-	"description": "restaurant guide",
-	"author": "Dixon Wong",
-	"dependencies": {
-        "mongoose": "*",
-        "express": "*",
-        "ejs": "*",
-		"body-parser": "*",
-		"express-fileupload": "*",
-		"cookie-session": "*",
-		"mongodb": "*",
-		"url": "*"
-	},
-	"engine": "node >= 0.10.0",
-	"scripts": {
-		"start": "node rtrServer4.0"
-	}
+  "version": "3.10.8",
+  "name": "npm",
+  "description": "restaurant guide",
+  "author": "Dixon Wong",
+  "dependencies": {
+    "mongoose": "latest",
+    "express": "latest",
+    "ejs": "latest",
+    "body-parser": "latest",
+    "express-fileupload": "latest",
+    "cookie-session": "latest",
+    "mongodb": "latest",
+    "url": "latest"
+  },
+  "engine": "node >= 0.10.0",
+  "scripts": {
+    "start": "node rtrServer4.0"
+  },
+  "main": "rtrServer4.0.js",
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dixonw1995/restaurant-guide.git"
+  },
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dixonw1995/restaurant-guide/issues"
+  },
+  "homepage": "https://github.com/dixonw1995/restaurant-guide#readme"
 }

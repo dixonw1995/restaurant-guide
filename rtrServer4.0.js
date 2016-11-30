@@ -86,7 +86,7 @@ app.get("/register", function(req, res) {
 	res.render("register");
 });
 app.post("/register", function(req, res, next) {
-	req.userid = req.body.userid;
+	var userid = req.body.userid;
 	console.log(userid + " is registering")
 	//register
 	//if (connection) {
@@ -132,7 +132,7 @@ app.post("/register", function(req, res, next) {
 			}
 			console.log(req.userid + " has registered");
 			//put in session
-			req.session.userid = req.userid;
+			req.session.userid = req.body.userid;
 			res.redirect("/read");
 		});
 	});

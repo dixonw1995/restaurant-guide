@@ -128,9 +128,9 @@ app.post("/register", function(req, res, next) {
 				});
 				return;
 			}
-			console.log(req.userid + " has registered");
+			console.log(req.user.userid + " has registered");
 			//put in session
-			req.session.userid = req.body.userid;
+			req.session.userid = req.user.userid;
 			res.redirect("/read");
 		});
 	});

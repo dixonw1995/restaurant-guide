@@ -166,6 +166,11 @@ app.post(/.*/, function(req, res, next) {
 			next();
 			return;
 		}
+		res.render("error", {
+			userid: req.session.userid,
+			error: "Wrong username or password<br>Please retry",
+			back: req.originalUrl
+		});
 		console.log(userid + " fails to log in");
 		res.render("login");
 	});

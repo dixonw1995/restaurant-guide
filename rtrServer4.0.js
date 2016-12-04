@@ -168,7 +168,7 @@ app.post(/.*/, function(req, res, next) {
 		}
 		res.render("error", {
 			userid: req.session.userid,
-			error: "Wrong username or password<br>Please retry",
+			error: "Wrong username or password.\nPlease retry",
 			back: req.originalUrl
 		});
 		console.log(userid + " fails to log in");
@@ -409,7 +409,7 @@ function dbReady(req, res, next) {
 	if (!connection) {
 		res.render("error", {
 			userid: userid,
-			error: "The server is not ready<br>Please retry later",
+			error: "The server is not ready.\nPlease retry later",
 			back: ""
 		});
 		return;

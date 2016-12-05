@@ -20,7 +20,7 @@ var rtrSchema = new Schema({
 		score: {type: Number, min: 0, max: 10},
 		user: String
 	}],
-	userid: String
+	user: String
 }, { collection: 'restaurants' });
 
 module.exports = rtrSchema;

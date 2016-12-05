@@ -2,7 +2,7 @@
 
 <h1>Restaurant: <%= rtr.name %></h1>
 <h2>User: <%= userid %></h2>
-<% if (rtr.photo) { %>
+<% if (rtr.photo && rtr.mimetype.startsWith("image")) { %>
 <img src="data: <%= rtr.mimetype %>;base64, <%= rtr.photo %>" border="1">
 <% } %>
 <ul>
